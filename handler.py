@@ -52,7 +52,8 @@ def execute(topic: str, params: dict, config: dict = None, telemetry: dict = Non
     if not query:
         return {"results": [], "count": 0, "_meta": {}}
 
-    limit = max(1, min(8, int(params.get("limit") or 5)))
+    limit_raw = params.get("limit")
+    limit = max(1, min(8, int(limit_raw) if limit_raw is not None else 5))
     time_range_raw = (params.get("time_range") or "").strip().lower()
     timelimit = _TIME_RANGE_MAP.get(time_range_raw)
 
